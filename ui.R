@@ -13,21 +13,16 @@ shinyUI(bootstrapPage(
 
         tabPanel("Main",
 
-            p('Note: Input values must be separated by tabs. Copy and paste from Excel/Numbers.'),
+            strong('Option:'),
 
-            aceEditor("text", value="2\t3\t3\t3\n3\t3\t4\t4\n4\t4\t3\t4\n5\t4\t3\t4\n3\t4\t2\t4\n3\t3\t4\t3\n4\t3\t4\t4\n3\t3\t2\t2\n4\t5\t5\t5\n2\t2\t1\t2\n4\t3\t4\t3\n3\t4\t3\t3\n3\t4\t4\t3\n3\t4\t3\t4\n5\t5\t5\t4",
-                mode="r", theme="cobalt"),
+            checkboxInput("colname", label = strong("Check if the input data includes variable names."), value = T),
 
             br(),
 
-            strong('Option:'),
+            p('Note: Input values must be separated by tabs. Copy and paste from Excel/Numbers.'),
 
-            checkboxInput("colname", label = strong("Input item names"), value = FALSE),
-
-                # Display this only if the item names are to be shown
-                conditionalPanel(condition = "input.colname == true",
-                                tags$textarea(id="colname.text", rows=5, "Item1\tItem2\tItem3\tItem4")
-                                ),
+            aceEditor("text", value="Item1\tItem2\tItem3\tItem4\n2\t3\t3\t3\n3\t3\t4\t4\n4\t4\t3\t4\n5\t4\t3\t4\n3\t4\t2\t4\n3\t3\t4\t3\n4\t3\t4\t4\n3\t3\t2\t2\n4\t5\t5\t5\n2\t2\t1\t2\n4\t3\t4\t3\n3\t4\t3\t3\n3\t4\t4\t3\n3\t4\t3\t4\n5\t5\t5\t4",
+                mode="r", theme="cobalt"),
 
             br(),
 
