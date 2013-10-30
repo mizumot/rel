@@ -46,14 +46,14 @@ shinyServer(function(input, output) {
             x <- read.table(text=input$text, sep="\t")
             x <- as.matrix(x)
             result1 <- cronbach.alpha(x)
-            result2 <- alpha(x)
+            result2 <- alpha(x, check.keys=F)
             list(result1, result2)
         
         } else {
             
             x <- read.csv(text=input$text, sep="\t")
             result1 <- cronbach.alpha(x)
-            result2 <- alpha(x)
+            result2 <- alpha(x, check.keys=F)
             list(result1, result2)
         
         }
