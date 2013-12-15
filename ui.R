@@ -15,7 +15,7 @@ shinyUI(bootstrapPage(
 
             strong('Option:'),
 
-            checkboxInput("colname", label = strong("Check if the input data includes variable names."), value = T),
+            checkboxInput("colname", label = strong("The input data includes variable names (header)."), value = T),
 
             br(),
 
@@ -37,11 +37,21 @@ shinyUI(bootstrapPage(
             br(),
 
             h3("Histogram"),
+            radioButtons("meantotal1", "",
+                list("Average" = "mean1",
+                     "Total" = "total1"), 'Average'),
+            downloadButton('downloadDistPlot', 'Download the plot as pdf'),
             plotOutput("distPlot"),
 
             br(),
 
             h3("Box plot with individual data points"),
+
+            radioButtons("meantotal2", "",
+                list("Average" = "mean2",
+                     "Total" = "total2"), 'Average'),
+            downloadButton('downloadBoxPlot', 'Download the plot as pdf'),
+
             plotOutput("boxPlot"),
 
             br(),
@@ -52,7 +62,14 @@ shinyUI(bootstrapPage(
             br(),
 
             h3("Q-Q plot"),
-            plotOutput("qqPlot", width="70%")
+            downloadButton('downloadQQPlot', 'Download the plot as pdf'),
+            plotOutput("qqPlot", width="70%"),
+
+            br(),
+            br(),
+
+            strong('R session info'),
+            verbatimTextOutput("info.out")
 
             ),
 
@@ -63,6 +80,15 @@ shinyUI(bootstrapPage(
             p('This web application is developed with',
             a("Shiny.", href="http://www.rstudio.com/shiny/", target="_blank"),
             ''),
+
+            br(),
+
+            strong('List of Packages Used'), br(),
+            code('library(shiny)'),br(),
+            code('library(shinyAce)'),br(),
+            code('library(psych)'),br(),
+            code('library(ltm)'),br(),
+
 
             br(),
 
