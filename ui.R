@@ -1,10 +1,8 @@
-
-
 library(shiny)
+library(shinyAce)
+library(psych)
 
 shinyUI(bootstrapPage(
-
-#shinyUI(pageWithSidebar(
 
     headerPanel("Cronbach's Coefficient Alpha"),
 
@@ -39,8 +37,7 @@ shinyUI(bootstrapPage(
             h3("Histogram"),
             radioButtons("meantotal1", "",
                 list("Average" = "mean1",
-                     "Total" = "total1"), 'Average'),
-            downloadButton('downloadDistPlot', 'Download the plot as pdf'),
+                     "Total" = "total1"), selected = "mean1"),
             plotOutput("distPlot"),
 
             br(),
@@ -49,9 +46,7 @@ shinyUI(bootstrapPage(
 
             radioButtons("meantotal2", "",
                 list("Average" = "mean2",
-                     "Total" = "total2"), 'Average'),
-            downloadButton('downloadBoxPlot', 'Download the plot as pdf'),
-
+                     "Total" = "total2"), selected = "mean2"),
             plotOutput("boxPlot"),
 
             br(),
@@ -62,7 +57,6 @@ shinyUI(bootstrapPage(
             br(),
 
             h3("Q-Q plot"),
-            downloadButton('downloadQQPlot', 'Download the plot as pdf'),
             plotOutput("qqPlot", width="70%"),
 
             br(),

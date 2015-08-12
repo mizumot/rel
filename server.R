@@ -1,6 +1,8 @@
 library(shiny)
 library(shinyAce)
 library(psych)
+library(beeswarm)
+
 
 
 shinyServer(function(input, output) {
@@ -146,14 +148,14 @@ shinyServer(function(input, output) {
         }
         
         boxplot(x, horizontal=TRUE, xlab= "Mean and +/-1 SD are displayed in red.")
-        stripchart(x, pch = 16, add = TRUE)
+        beeswarm(x, horizontal=TRUE, col = 4, pch = 16, add = TRUE)
         points(mean(x, na.rm=T), 0.9, pch = 18, col = "red", cex = 2)
         arrows(mean(x, na.rm=T), 0.9, mean(x, na.rm=T) + sd(x, na.rm=T), length = 0.1, angle = 45, col = "red")
         arrows(mean(x, na.rm=T), 0.9, mean(x, na.rm=T) - sd(x, na.rm=T), length = 0.1, angle = 45, col = "red")
     }
 
     output$boxPlot <- renderPlot({
-        print(makeboxPlot()) # 上の function を参照する指定
+        print(makeboxPlot())
     })
     
     
@@ -230,35 +232,5 @@ shinyServer(function(input, output) {
     output$info.out <- renderPrint({
         info()
     })
-    
-    output$downloadDistPlot <- downloadHandler(
-    filename = function() {
-        paste('Distribution-', Sys.Date(), '.pdf', sep='')
-    },
-    content = function(FILE=NULL) {
-        pdf(file=FILE)
-		print(makedistPlot())
-		dev.off()
-	})
-    
-    output$downloadBoxPlot <- downloadHandler(
-    filename = function() {
-        paste('Boxplot-', Sys.Date(), '.pdf', sep='')
-    },
-    content = function(FILE=NULL) {
-        pdf(file=FILE)
-		print(makeboxPlot())
-		dev.off()
-	})
-    
-    output$downloadQQPlot <- downloadHandler(
-    filename = function() {
-        paste('QQplot-', Sys.Date(), '.pdf', sep='')
-    },
-    content = function(FILE=NULL) {
-        pdf(file=FILE)
-		print(makeqqPlot())
-		dev.off()
-	})
 
 })
