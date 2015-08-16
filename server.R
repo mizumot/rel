@@ -13,7 +13,7 @@ shinyServer(function(input, output) {
     
     bs <- reactive({
         if (input$colname == 0) {
-            x <- read.table(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."), header=F)
             x <- as.matrix(x)
             total <- rowSums(x, na.rm=T)
             result1 <- describe(total)[2:13]
@@ -27,7 +27,7 @@ shinyServer(function(input, output) {
         
         } else {
             
-            x <- read.csv(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."))
             total <- rowSums(x, na.rm=T)
             result1 <- describe(total)[2:13]
             
@@ -44,12 +44,12 @@ shinyServer(function(input, output) {
     
     alpha.result <- reactive({
         if (input$colname == 0) {
-            x <- read.table(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."), header=F)
             x <- as.matrix(x)
             alpha(x, check.keys=F, na.rm=T)
         
         } else {
-            x <- read.csv(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."))
             alpha(x, check.keys=F, na.rm=T)
             
         }
@@ -62,7 +62,7 @@ shinyServer(function(input, output) {
     
     makedistPlot <- function(){
         if (input$colname == 0) {
-            x <- read.table(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."), header=F)
             x <- as.matrix(x)
             
             if (input$meantotal1 == "mean1") {
@@ -72,7 +72,7 @@ shinyServer(function(input, output) {
             }
             
         } else {
-            x <- read.csv(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."))
             
             if (input$meantotal1 == "mean1") {
                 x <- rowMeans(x, na.rm=T)
@@ -128,7 +128,7 @@ shinyServer(function(input, output) {
     
     makeboxPlot <- function(){
         if (input$colname == 0) {
-            x <- read.table(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."), header=F)
             x <- as.matrix(x)
             
             if (input$meantotal2 == "mean2") {
@@ -138,7 +138,7 @@ shinyServer(function(input, output) {
             }
             
         } else {
-            x <- read.csv(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."))
             
             if (input$meantotal2 == "mean2") {
                 x <- rowMeans(x, na.rm=T)
@@ -165,12 +165,12 @@ shinyServer(function(input, output) {
     testnorm <- reactive({
         if (input$colname == 0) {
 
-            x <- read.table(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."), header=F)
             x <- as.matrix(x)
             x <- rowMeans(x, na.rm=T)
 
         } else {
-            x <- read.csv(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."))
             x <- rowMeans(x, na.rm=T)
         }
 
@@ -185,12 +185,12 @@ shinyServer(function(input, output) {
     makeqqPlot <- function(){
         if (input$colname == 0) {
             
-            x <- read.table(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."), header=F)
             x <- as.matrix(x)
             x <- rowMeans(x, na.rm=T)
             
         } else {
-            x <- read.csv(text=input$text, sep="\t")
+            x <- read.csv(text=input$text, sep="", na.strings=c("","NA","."))
             x <- rowMeans(x, na.rm=T)
         }
         
@@ -207,8 +207,8 @@ shinyServer(function(input, output) {
 
 
     info <- reactive({
-        info1 <- paste("This analysis was conducted with ", strsplit(R.version$version.string, " \\(")[[1]][1], ".", sep = "")# バージョン情報
-        info2 <- paste("It was executed on ", date(), ".", sep = "")# 実行日時
+        info1 <- paste("This analysis was conducted with ", strsplit(R.version$version.string, " \\(")[[1]][1], ".", sep = "")
+        info2 <- paste("It was executed on ", date(), ".", sep = "")
         cat(sprintf(info1), "\n")
         cat(sprintf(info2), "\n")
     })
